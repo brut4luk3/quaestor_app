@@ -7,26 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'DetailsScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NamesBloc(api: Api())..add(LoadNamesEvent()),
+      create: (_) => NamesBloc(api: Api())..add(const LoadNamesEvent()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Nomes mais frequentes"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.filter_list),
-              onPressed: () {},
-            )
-          ],
         ),
-        body: const Center(
-          child: NamesList(),
-        ),
+        body: const NamesList(),
       ),
     );
   }
@@ -58,7 +55,7 @@ class _NamesListState extends State<NamesList> {
     setState(() {
       _searchQuery = query;
       _filteredNames = Api().searchNames(query, _allNames);
-      _currentPage = 0; // Reset to the first page
+      _currentPage = 0;
     });
   }
 
@@ -67,7 +64,7 @@ class _NamesListState extends State<NamesList> {
       _searchQuery = '';
       _searchController.clear();
       _filteredNames = Api().searchNames(_searchQuery, _allNames);
-      _currentPage = 0; // Reset to the first page
+      _currentPage = 0;
     });
   }
 
@@ -112,7 +109,7 @@ class _NamesListState extends State<NamesList> {
           child: BlocBuilder<NamesBloc, NamesState>(
             builder: (context, state) {
               if (state is NamesLoading) {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               } else if (state is NamesLoaded) {
                 _allNames = state.names;
                 _filteredNames = Api().searchNames(_searchQuery, _allNames);
@@ -176,7 +173,7 @@ class _NamesListState extends State<NamesList> {
                   ],
                 );
               } else if (state is NamesError) {
-                return const Text('Erro ao carregar nomes');
+                return const Center(child: Text('Erro ao carregar nomes'));
               }
               return const SizedBox.shrink();
             },

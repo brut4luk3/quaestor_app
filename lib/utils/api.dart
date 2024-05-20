@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/io_client.dart';
 
 class Api {
-  var main_url = "https://servicodados.ibge.gov.br/api/v2";
+  var main_url = 'https://servicodados.ibge.gov.br/api/v2';
 
   Future<List> fetchNames() async {
     final url = '$main_url/censos/nomes/';
@@ -32,8 +32,8 @@ class Api {
     }
   }
 
-  Future<Map<String, dynamic>> fetchNameDetails(String selectedName) async {
-    final url = '$main_url/censos/nomes/$selectedName';
+  Future<Map<String, dynamic>> fetchNameDetails(String name) async {
+    final url = '$main_url/censos/nomes/$name';
 
     final ioc = HttpClient()
       ..badCertificateCallback =
