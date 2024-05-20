@@ -162,7 +162,7 @@ class _NamesListState extends State<NamesList> {
                           });
                         },
                         config: const NumberPaginatorUIConfig(
-                          buttonSelectedBackgroundColor: Colors.green,
+                          buttonSelectedBackgroundColor: Colors.grey,
                           buttonSelectedForegroundColor: Colors.white,
                           buttonUnselectedForegroundColor: Colors.black,
                           buttonShape: RoundedRectangleBorder(
